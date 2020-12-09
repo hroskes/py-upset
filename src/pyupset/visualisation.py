@@ -177,9 +177,9 @@ class UpSetPlot():
         tablesize_w, tablesize_h = setsize_w + 2, self.rows
         intmatrix_w, intmatrix_h = tablesize_w + self.cols, self.rows
         intbars_w, intbars_h = tablesize_w + self.cols, self.rows * 4
-        ax_setsize = plt.subplot(gs_top[-1:-setsize_h, 0:setsize_w])
-        ax_tablenames = plt.subplot(gs_top[-1:-tablesize_h, setsize_w:tablesize_w])
-        ax_intmatrix = plt.subplot(gs_top[-1:-intmatrix_h, tablesize_w:intmatrix_w])
+        ax_setsize = plt.subplot(gs_top[-setsize_h:-1, 0:setsize_w])
+        ax_tablenames = plt.subplot(gs_top[-tablesize_h:-1, setsize_w:tablesize_w])
+        ax_intmatrix = plt.subplot(gs_top[-intmatrix_h:-1, tablesize_w:intmatrix_w])
         ax_intbars = plt.subplot(gs_top[:self.rows * 4 - 1, tablesize_w:intbars_w])
 
         add_ax = []
@@ -568,7 +568,7 @@ class DataExtractor:
             for s in out_sets:
                 exclusive_intersection = exclusive_intersection.difference(pd.Index(self.df_dict[s][
                     self.unique_keys]))
-            final_df = self.df_dict[seed].set_index(pd.Index(self.df_dict[seed][self.unique_keys])).ix[
+            final_df = self.df_dict[seed].set_index(pd.Index(self.df_dict[seed][self.unique_keys])).loc[
                 exclusive_intersection].reset_index(drop=True)
             inters_dict[in_sets] = final_df
 
